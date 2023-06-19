@@ -13,6 +13,10 @@
 		F31A5E492A408FA100B49425 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F31A5E472A408FA100B49425 /* Main.storyboard */; };
 		F31A5E4B2A408FA300B49425 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F31A5E4A2A408FA300B49425 /* Assets.xcassets */; };
 		F31A5E4E2A408FA300B49425 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F31A5E4C2A408FA300B49425 /* LaunchScreen.storyboard */; };
+		F31A5E5A2A4091A800B49425 /* PlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A5E592A4091A800B49425 /* PlayerVC.swift */; };
+		F31A5E5C2A4091C000B49425 /* MobileVideoPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A5E5B2A4091C000B49425 /* MobileVideoPlayerVC.swift */; };
+		F31A5E5E2A4091D400B49425 /* VLCPlayerCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A5E5D2A4091D400B49425 /* VLCPlayerCV.swift */; };
+		F31A5E602A4091E700B49425 /* AVPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A5E5F2A4091E700B49425 /* AVPlayerVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		F31A5E4A2A408FA300B49425 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F31A5E4D2A408FA300B49425 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F31A5E4F2A408FA300B49425 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F31A5E592A4091A800B49425 /* PlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerVC.swift; sourceTree = "<group>"; };
+		F31A5E5B2A4091C000B49425 /* MobileVideoPlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileVideoPlayerVC.swift; sourceTree = "<group>"; };
+		F31A5E5D2A4091D400B49425 /* VLCPlayerCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCPlayerCV.swift; sourceTree = "<group>"; };
+		F31A5E5F2A4091E700B49425 /* AVPlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayerVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +64,10 @@
 		F31A5E402A408FA100B49425 /* VideoPlayer_New */ = {
 			isa = PBXGroup;
 			children = (
+				F31A5E582A40900600B49425 /* Player */,
+				F31A5E572A408FFB00B49425 /* MobileVideoPlayer */,
+				F31A5E562A408FEF00B49425 /* VLCPlayer */,
+				F31A5E552A408FE600B49425 /* AVPlayer */,
 				F31A5E412A408FA100B49425 /* AppDelegate.swift */,
 				F31A5E432A408FA100B49425 /* SceneDelegate.swift */,
 				F31A5E452A408FA100B49425 /* ViewController.swift */,
@@ -65,6 +77,38 @@
 				F31A5E4F2A408FA300B49425 /* Info.plist */,
 			);
 			path = VideoPlayer_New;
+			sourceTree = "<group>";
+		};
+		F31A5E552A408FE600B49425 /* AVPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				F31A5E5F2A4091E700B49425 /* AVPlayerVC.swift */,
+			);
+			path = AVPlayer;
+			sourceTree = "<group>";
+		};
+		F31A5E562A408FEF00B49425 /* VLCPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				F31A5E5D2A4091D400B49425 /* VLCPlayerCV.swift */,
+			);
+			path = VLCPlayer;
+			sourceTree = "<group>";
+		};
+		F31A5E572A408FFB00B49425 /* MobileVideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				F31A5E5B2A4091C000B49425 /* MobileVideoPlayerVC.swift */,
+			);
+			path = MobileVideoPlayer;
+			sourceTree = "<group>";
+		};
+		F31A5E582A40900600B49425 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				F31A5E592A4091A800B49425 /* PlayerVC.swift */,
+			);
+			path = Player;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,6 +185,10 @@
 				F31A5E462A408FA100B49425 /* ViewController.swift in Sources */,
 				F31A5E422A408FA100B49425 /* AppDelegate.swift in Sources */,
 				F31A5E442A408FA100B49425 /* SceneDelegate.swift in Sources */,
+				F31A5E602A4091E700B49425 /* AVPlayerVC.swift in Sources */,
+				F31A5E5E2A4091D400B49425 /* VLCPlayerCV.swift in Sources */,
+				F31A5E5C2A4091C000B49425 /* MobileVideoPlayerVC.swift in Sources */,
+				F31A5E5A2A4091A800B49425 /* PlayerVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

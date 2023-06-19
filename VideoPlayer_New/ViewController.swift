@@ -15,5 +15,19 @@ class ViewController: UIViewController {
     }
 
 
+    @IBAction func AVPlayerPressed(_ sender: Any) {
+    }
+    
+    @IBAction func MobilePlayerPressed(_ sender: Any) {
+    }
+    
+    @IBAction func VLCPlayerPressed(_ sender: Any) {
+    }
+    
+    
+    @IBAction func playerPressed(_ sender: Any) {
+    }
+    
+    
 }
 

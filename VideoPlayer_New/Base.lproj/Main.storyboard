@@ -1,24 +1,202 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UTd-Sq-ukn">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="VideoPlayer_New" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="swV-lA-hac">
+                                <rect key="frame" x="150.66666666666666" y="166" width="92" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="AVPlayer"/>
+                                <connections>
+                                    <action selector="AVPlayerPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xlR-yQ-7TX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njf-D0-Ci6">
+                                <rect key="frame" x="114" y="300" width="165" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="MobileVideoPlayer"/>
+                                <connections>
+                                    <action selector="MobilePlayerPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yJK-g9-CNT"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wbp-Mr-MaC">
+                                <rect key="frame" x="145" y="448" width="103" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="VLCPlayer"/>
+                                <connections>
+                                    <action selector="VLCPlayerPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="amN-69-eU8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uu7-Ms-VeY">
+                                <rect key="frame" x="161" y="591" width="71" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Player"/>
+                                <connections>
+                                    <action selector="playerPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dIa-98-3gB"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Wbp-Mr-MaC" firstAttribute="top" secondItem="njf-D0-Ci6" secondAttribute="bottom" constant="113" id="9ek-M8-2Rl"/>
+                            <constraint firstItem="Uu7-Ms-VeY" firstAttribute="top" secondItem="Wbp-Mr-MaC" secondAttribute="bottom" constant="108" id="D9y-0H-Dyv"/>
+                            <constraint firstItem="njf-D0-Ci6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ikg-V6-bMs"/>
+                            <constraint firstItem="Uu7-Ms-VeY" firstAttribute="top" secondItem="Wbp-Mr-MaC" secondAttribute="bottom" constant="108" id="Nli-mC-SdQ"/>
+                            <constraint firstItem="swV-lA-hac" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VOX-k1-Z4a"/>
+                            <constraint firstItem="Wbp-Mr-MaC" firstAttribute="centerX" secondItem="Uu7-Ms-VeY" secondAttribute="centerX" id="YKO-e8-2et"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Uu7-Ms-VeY" secondAttribute="bottom" constant="192" id="Zn3-KE-tWR"/>
+                            <constraint firstItem="swV-lA-hac" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="63" id="acb-JP-bBa"/>
+                            <constraint firstItem="njf-D0-Ci6" firstAttribute="top" secondItem="swV-lA-hac" secondAttribute="bottom" constant="99" id="alf-tM-8Ho"/>
+                            <constraint firstItem="Wbp-Mr-MaC" firstAttribute="top" secondItem="njf-D0-Ci6" secondAttribute="bottom" constant="113" id="e3s-Co-vw0"/>
+                            <constraint firstItem="njf-D0-Ci6" firstAttribute="top" secondItem="swV-lA-hac" secondAttribute="bottom" constant="99" id="mGY-jW-bJ0"/>
+                            <constraint firstItem="Uu7-Ms-VeY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="r38-iI-gPj"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="a8z-4K-dy0"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1028.2442748091603" y="3.5211267605633805"/>
+        </scene>
+        <!--PlayerCV-->
+        <scene sceneID="nOF-ba-lpj">
+            <objects>
+                <viewController storyboardIdentifier="VLCPlayerCV" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6k0-VM-k37" customClass="VLCPlayerCV" customModule="VideoPlayer_New" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sVc-NU-2SB">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="goa-ug-WZh">
+                                <rect key="frame" x="0.0" y="125" width="393" height="252"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="labelColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="JVT-yb-NVI"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="vlcPlayerView" destination="goa-ug-WZh" id="yuQ-m8-3Oh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VTT-ZS-fRi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1072" y="708"/>
+        </scene>
+        <!--PlayerVC-->
+        <scene sceneID="cWY-1R-cjh">
+            <objects>
+                <viewController storyboardIdentifier="PlayerVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1aD-4n-TN4" customClass="PlayerVC" customModule="VideoPlayer_New" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RaB-GX-xGK">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="npH-Yc-b9W">
+                                <rect key="frame" x="0.0" y="125" width="393" height="252"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="labelColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="pD9-IQ-UYQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="playerView" destination="npH-Yc-b9W" id="dYG-jQ-HK2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="USQ-L5-uen" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2076" y="781"/>
+        </scene>
+        <!--PlayerVC-->
+        <scene sceneID="c9v-Vm-MGB">
+            <objects>
+                <viewController storyboardIdentifier="AVPlayerVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NX9-GG-1s7" customClass="AVPlayerVC" customModule="VideoPlayer_New" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hEz-UK-NBS">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eD0-4c-SRZ">
+                                <rect key="frame" x="0.0" y="125" width="393" height="252"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="labelColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="7yU-la-3BI"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="avPlayerView" destination="eD0-4c-SRZ" id="ipG-5U-nTq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="13c-0s-Ipg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1785" y="14"/>
+        </scene>
+        <!--Mobile Video PlayerVC-->
+        <scene sceneID="BAY-fL-545">
+            <objects>
+                <viewController storyboardIdentifier="MobileVideoPlayerVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="DPE-t2-YYU" customClass="MobileVideoPlayerVC" customModule="VideoPlayer_New" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hjp-yR-frH">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gqK-ay-5vH">
+                                <rect key="frame" x="0.0" y="125" width="393" height="252"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="labelColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="OTY-55-Gz9"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="mobilePlayerView" destination="gqK-ay-5vH" id="gUC-HJ-kIK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hIq-pG-Yyb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2685" y="13"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="IKy-JR-d6z">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UTd-Sq-ukn" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mcx-o1-mBH">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="uxq-gI-vAX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UUW-pN-ejk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="101.5267175572519" y="3.5211267605633805"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
