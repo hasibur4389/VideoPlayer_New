@@ -18,6 +18,8 @@
 		F31A5E5C2A4091C000B49425 /* MobileVideoPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A5E5B2A4091C000B49425 /* MobileVideoPlayerVC.swift */; };
 		F31A5E5E2A4091D400B49425 /* VLCPlayerCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A5E5D2A4091D400B49425 /* VLCPlayerCV.swift */; };
 		F31A5E602A4091E700B49425 /* AVPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A5E5F2A4091E700B49425 /* AVPlayerVC.swift */; };
+		F31A5E632A40969700B49425 /* header.m in Sources */ = {isa = PBXBuildFile; fileRef = F31A5E622A40969700B49425 /* header.m */; };
+		F31A5E672A409C6600B49425 /* Tom.mov in Resources */ = {isa = PBXBuildFile; fileRef = F31A5E662A409C6600B49425 /* Tom.mov */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,9 @@
 		F31A5E5B2A4091C000B49425 /* MobileVideoPlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileVideoPlayerVC.swift; sourceTree = "<group>"; };
 		F31A5E5D2A4091D400B49425 /* VLCPlayerCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCPlayerCV.swift; sourceTree = "<group>"; };
 		F31A5E5F2A4091E700B49425 /* AVPlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayerVC.swift; sourceTree = "<group>"; };
+		F31A5E612A40969700B49425 /* VideoPlayer_New-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VideoPlayer_New-Bridging-Header.h"; sourceTree = "<group>"; };
+		F31A5E622A40969700B49425 /* header.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = header.m; sourceTree = "<group>"; };
+		F31A5E662A409C6600B49425 /* Tom.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = Tom.mov; path = ../../../../Downloads/Tom.mov; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +69,6 @@
 				37FF05A73CF7B08C6450A0AD /* Pods-VideoPlayer_New.debug.xcconfig */,
 				B770D55B825C3F6C981083B1 /* Pods-VideoPlayer_New.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -96,6 +100,7 @@
 				F31A5E412A408FA100B49425 /* AppDelegate.swift */,
 				F31A5E432A408FA100B49425 /* SceneDelegate.swift */,
 				F31A5E452A408FA100B49425 /* ViewController.swift */,
+				F31A5E662A409C6600B49425 /* Tom.mov */,
 				F31A5E472A408FA100B49425 /* Main.storyboard */,
 				F31A5E4A2A408FA300B49425 /* Assets.xcassets */,
 				F31A5E4C2A408FA300B49425 /* LaunchScreen.storyboard */,
@@ -124,6 +129,8 @@
 			isa = PBXGroup;
 			children = (
 				F31A5E5B2A4091C000B49425 /* MobileVideoPlayerVC.swift */,
+				F31A5E622A40969700B49425 /* header.m */,
+				F31A5E612A40969700B49425 /* VideoPlayer_New-Bridging-Header.h */,
 			);
 			path = MobileVideoPlayer;
 			sourceTree = "<group>";
@@ -170,6 +177,7 @@
 				TargetAttributes = {
 					F31A5E3D2A408FA100B49425 = {
 						CreatedOnToolsVersion = 14.3;
+						LastSwiftMigration = 1430;
 					};
 				};
 			};
@@ -198,6 +206,7 @@
 			files = (
 				F31A5E4E2A408FA300B49425 /* LaunchScreen.storyboard in Resources */,
 				F31A5E4B2A408FA300B49425 /* Assets.xcassets in Resources */,
+				F31A5E672A409C6600B49425 /* Tom.mov in Resources */,
 				F31A5E492A408FA100B49425 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -255,6 +264,7 @@
 				F31A5E422A408FA100B49425 /* AppDelegate.swift in Sources */,
 				F31A5E442A408FA100B49425 /* SceneDelegate.swift in Sources */,
 				F31A5E602A4091E700B49425 /* AVPlayerVC.swift in Sources */,
+				F31A5E632A40969700B49425 /* header.m in Sources */,
 				F31A5E5E2A4091D400B49425 /* VLCPlayerCV.swift in Sources */,
 				F31A5E5C2A4091C000B49425 /* MobileVideoPlayerVC.swift in Sources */,
 				F31A5E5A2A4091A800B49425 /* PlayerVC.swift in Sources */,
@@ -403,6 +413,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3TS722284J;
@@ -421,6 +432,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "newApp.VideoPlayer-New";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "VideoPlayer_New/MobileVideoPlayer/VideoPlayer_New-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -432,6 +445,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3TS722284J;
@@ -450,6 +464,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "newApp.VideoPlayer-New";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "VideoPlayer_New/MobileVideoPlayer/VideoPlayer_New-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -6,25 +6,74 @@
 //
 
 import UIKit
+import MobileVLCKit
 
 class VLCPlayerCV: UIViewController {
 
     @IBOutlet var vlcPlayerView: UIView!
+    let thePlayer: VLCMediaPlayer = {
+        let player = VLCMediaPlayer()
+        return player
+    }()
+    
+    var pathURL: String!
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        //print("Nowww?")
+        pathURL = Bundle.main.path(forResource: "Tom", ofType: "mov")
+        
+    
+        
+        if let pathURL = pathURL{
+            print("Path found \(pathURL)")
+
+            playVLCPlayer()
+            
+    }else{
+            print("vidoe Path Error")
+        }
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(VLCPlayerCV.movieViewTapped(_:)))
+               self.vlcPlayerView.addGestureRecognizer(gesture)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func playVLCPlayer(){
+        let path = NSURL(fileURLWithPath: pathURL)
+        var media = VLCMedia(url: path as URL)
+        
+        thePlayer.media = media
+        
+        thePlayer.drawable = vlcPlayerView
+    
+        
+        thePlayer.play()
+        
     }
-    */
+    
+    @objc func movieViewTapped(_ sender: UITapGestureRecognizer){
+       // print("WYhyy")
+        if thePlayer.isPlaying {
+             thePlayer.pause()
+              
+           // print("Hellop")
+             let remaining = thePlayer.remainingTime
+             let time = thePlayer.time
+
+             print("Paused at \(time) with \(remaining) time remaining")
+         }
+         else {
+             thePlayer.play()
+             print("Playing")
+         }
+        
+    }
+    
+    
+
+  
 
 }

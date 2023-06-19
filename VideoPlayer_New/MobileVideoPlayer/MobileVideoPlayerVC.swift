@@ -6,25 +6,67 @@
 //
 
 import UIKit
+import MobilePlayer
 
 class MobileVideoPlayerVC: UIViewController {
 
     @IBOutlet var mobilePlayerView: UIView!
+    var pathURL: URL!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        pathURL = Bundle.main.url(forResource: "Tom", withExtension: "mov")
+        
+        
+    
+        
+        if let pathURL = pathURL{
+            print("Path found \(pathURL)")
 
-        // Do any additional setup after loading the view.
+            playMobilePlayer()
+            
+    }else{
+            print("vidoe Path Error")
+        }
+
     }
     
+    
+    func playMobilePlayer(){
+     //   let url = NSURL(fileURLWithPath: pathURL)
+        
+        let bundle = Bundle.main
+        let config = MobilePlayerConfig(fileURL: bundle.url(
+            forResource: "Tom",
+          withExtension: "mov")!)
+        
+        let playerVC = MobilePlayerViewController(
+            contentURL: pathURL,
+          config: config)
+        playerVC.title = "Watermarked Player - MMM"
+//        playerVC.view.frame = mobileVideoView.bounds
+//        playerVC.view = mobileVideoView
+        playerVC.activityItems = [pathURL!]
+      
+        
+        playerVC.controlsHidden = false
+       
+        playerVC.view.frame = mobilePlayerView.bounds
+        mobilePlayerView.addSubview(playerVC.view)
+        addChild(playerVC)
+       // playerVC.didMove(toParent: self)
+      
 
-    /*
-    // MARK: - Navigation
+//        playerVC.didMove(toParent: self)
+        
+          playerVC.play()
+        
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
     }
-    */
+
+   
 
 }
