@@ -16,16 +16,35 @@ class ViewController: UIViewController {
 
 
     @IBAction func AVPlayerPressed(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "AVPlayerVC") as! AVPlayerVC
+//            vc.pathURL = url
+      
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func MobilePlayerPressed(_ sender: Any) {
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "MobileVideoPlayerVC") as! MobileVideoPlayerVC
+//            vc.pathURL = url
+      
+        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     @IBAction func VLCPlayerPressed(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "VLCPlayerCV") as! VLCPlayerCV
+//            vc.pathURL = url
+      
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     
     @IBAction func playerPressed(_ sender: Any) {
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "PlayerVC") as! PlayerVC
+//            vc.pathURL = url
+      
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     

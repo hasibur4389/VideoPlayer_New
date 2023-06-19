@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C17C43476FB7AA1B1170E288 /* Pods_VideoPlayer_New.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5797627F64995B5F0F7656FB /* Pods_VideoPlayer_New.framework */; };
 		F31A5E422A408FA100B49425 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A5E412A408FA100B49425 /* AppDelegate.swift */; };
 		F31A5E442A408FA100B49425 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A5E432A408FA100B49425 /* SceneDelegate.swift */; };
 		F31A5E462A408FA100B49425 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A5E452A408FA100B49425 /* ViewController.swift */; };
@@ -20,6 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		37FF05A73CF7B08C6450A0AD /* Pods-VideoPlayer_New.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoPlayer_New.debug.xcconfig"; path = "Target Support Files/Pods-VideoPlayer_New/Pods-VideoPlayer_New.debug.xcconfig"; sourceTree = "<group>"; };
+		5797627F64995B5F0F7656FB /* Pods_VideoPlayer_New.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VideoPlayer_New.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B770D55B825C3F6C981083B1 /* Pods-VideoPlayer_New.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoPlayer_New.release.xcconfig"; path = "Target Support Files/Pods-VideoPlayer_New/Pods-VideoPlayer_New.release.xcconfig"; sourceTree = "<group>"; };
 		F31A5E3E2A408FA100B49425 /* VideoPlayer_New.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoPlayer_New.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F31A5E412A408FA100B49425 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F31A5E432A408FA100B49425 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,17 +43,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C17C43476FB7AA1B1170E288 /* Pods_VideoPlayer_New.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		722FFB44424960ACD3AFA202 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5797627F64995B5F0F7656FB /* Pods_VideoPlayer_New.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E2B50681CEE6EF941DE1CB8D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				37FF05A73CF7B08C6450A0AD /* Pods-VideoPlayer_New.debug.xcconfig */,
+				B770D55B825C3F6C981083B1 /* Pods-VideoPlayer_New.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		F31A5E352A408FA100B49425 = {
 			isa = PBXGroup;
 			children = (
 				F31A5E402A408FA100B49425 /* VideoPlayer_New */,
 				F31A5E3F2A408FA100B49425 /* Products */,
+				E2B50681CEE6EF941DE1CB8D /* Pods */,
+				722FFB44424960ACD3AFA202 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,9 +143,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F31A5E522A408FA300B49425 /* Build configuration list for PBXNativeTarget "VideoPlayer_New" */;
 			buildPhases = (
+				0B170BC2D69ABEF51301EC7A /* [CP] Check Pods Manifest.lock */,
 				F31A5E3A2A408FA100B49425 /* Sources */,
 				F31A5E3B2A408FA100B49425 /* Frameworks */,
 				F31A5E3C2A408FA100B49425 /* Resources */,
+				BA66ADC151AC81AD72551E16 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -176,6 +203,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0B170BC2D69ABEF51301EC7A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VideoPlayer_New-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BA66ADC151AC81AD72551E16 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VideoPlayer_New/Pods-VideoPlayer_New-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VideoPlayer_New/Pods-VideoPlayer_New-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VideoPlayer_New/Pods-VideoPlayer_New-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F31A5E3A2A408FA100B49425 /* Sources */ = {
@@ -330,6 +399,7 @@
 		};
 		F31A5E532A408FA300B49425 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 37FF05A73CF7B08C6450A0AD /* Pods-VideoPlayer_New.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -358,6 +428,7 @@
 		};
 		F31A5E542A408FA300B49425 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B770D55B825C3F6C981083B1 /* Pods-VideoPlayer_New.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
