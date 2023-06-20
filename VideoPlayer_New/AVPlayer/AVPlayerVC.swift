@@ -23,7 +23,7 @@ class AVPlayerVC: UIViewController {
     
     
     override func viewDidLoad() {
-        pathURL = Bundle.main.url(forResource: "Tom", withExtension: "mov")
+        pathURL = Bundle.main.url(forResource: "Tom", withExtension: "mp4")
         
     
         

@@ -10,7 +10,7 @@ import Player
 
 class PlayerVC: UIViewController {
     
-    let player = Player()
+ var player = Player()
     
     var pathURL: URL!
 
@@ -20,7 +20,7 @@ class PlayerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        pathURL = Bundle.main.url(forResource: "Tom", withExtension: "mov")
+        pathURL = Bundle.main.url(forResource: "Tom", withExtension: "mp4")
         
     
         

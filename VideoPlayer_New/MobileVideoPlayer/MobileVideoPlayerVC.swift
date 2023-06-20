@@ -17,7 +17,7 @@ class MobileVideoPlayerVC: UIViewController {
         super.viewDidLoad()
         
         
-        pathURL = Bundle.main.url(forResource: "Tom", withExtension: "mov")
+        pathURL = Bundle.main.url(forResource: "Tom", withExtension: "mp4")
         
         
     
@@ -40,7 +40,7 @@ class MobileVideoPlayerVC: UIViewController {
         let bundle = Bundle.main
         let config = MobilePlayerConfig(fileURL: bundle.url(
             forResource: "Tom",
-          withExtension: "mov")!)
+          withExtension: "mp4")!)
         
         let playerVC = MobilePlayerViewController(
             contentURL: pathURL,

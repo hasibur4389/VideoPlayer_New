@@ -19,7 +19,7 @@
 		F31A5E5E2A4091D400B49425 /* VLCPlayerCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A5E5D2A4091D400B49425 /* VLCPlayerCV.swift */; };
 		F31A5E602A4091E700B49425 /* AVPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A5E5F2A4091E700B49425 /* AVPlayerVC.swift */; };
 		F31A5E632A40969700B49425 /* header.m in Sources */ = {isa = PBXBuildFile; fileRef = F31A5E622A40969700B49425 /* header.m */; };
-		F31A5E672A409C6600B49425 /* Tom.mov in Resources */ = {isa = PBXBuildFile; fileRef = F31A5E662A409C6600B49425 /* Tom.mov */; };
+		F3D7AA802A4170E20017F588 /* Tom.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F3D7AA7F2A4170E20017F588 /* Tom.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +40,7 @@
 		F31A5E5F2A4091E700B49425 /* AVPlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayerVC.swift; sourceTree = "<group>"; };
 		F31A5E612A40969700B49425 /* VideoPlayer_New-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VideoPlayer_New-Bridging-Header.h"; sourceTree = "<group>"; };
 		F31A5E622A40969700B49425 /* header.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = header.m; sourceTree = "<group>"; };
-		F31A5E662A409C6600B49425 /* Tom.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = Tom.mov; path = ../../../../Downloads/Tom.mov; sourceTree = "<group>"; };
+		F3D7AA7F2A4170E20017F588 /* Tom.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = Tom.mp4; path = ../../../Tom.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,9 +98,9 @@
 				F31A5E562A408FEF00B49425 /* VLCPlayer */,
 				F31A5E552A408FE600B49425 /* AVPlayer */,
 				F31A5E412A408FA100B49425 /* AppDelegate.swift */,
+				F3D7AA7F2A4170E20017F588 /* Tom.mp4 */,
 				F31A5E432A408FA100B49425 /* SceneDelegate.swift */,
 				F31A5E452A408FA100B49425 /* ViewController.swift */,
-				F31A5E662A409C6600B49425 /* Tom.mov */,
 				F31A5E472A408FA100B49425 /* Main.storyboard */,
 				F31A5E4A2A408FA300B49425 /* Assets.xcassets */,
 				F31A5E4C2A408FA300B49425 /* LaunchScreen.storyboard */,
@@ -206,7 +206,7 @@
 			files = (
 				F31A5E4E2A408FA300B49425 /* LaunchScreen.storyboard in Resources */,
 				F31A5E4B2A408FA300B49425 /* Assets.xcassets in Resources */,
-				F31A5E672A409C6600B49425 /* Tom.mov in Resources */,
+				F3D7AA802A4170E20017F588 /* Tom.mp4 in Resources */,
 				F31A5E492A408FA100B49425 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

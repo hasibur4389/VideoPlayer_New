@@ -23,7 +23,7 @@ class VLCPlayerCV: UIViewController {
         super.viewDidLoad()
 
         //print("Nowww?")
-        pathURL = Bundle.main.path(forResource: "Tom", ofType: "mov")
+        pathURL = Bundle.main.path(forResource: "Tom", ofType: "mp4")
         
     
         
