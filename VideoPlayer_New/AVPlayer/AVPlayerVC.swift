@@ -8,14 +8,21 @@
 import UIKit
 import AVFoundation
 import AVKit
+import VideoToolbox
 
 class AVPlayerVC: UIViewController {
 
     @IBOutlet var avPlayerView: UIView!
     
+    @IBOutlet var framView: UIImageView!
+    
+    var frameImages: [UIImage] = []
     var pathURL: URL!
     var mediaPlayerName: String!
     var isPlaying: Bool = false
+    
+    
+    @IBOutlet var myCollectionView: UICollectionView!
     
      var avPlayer: AVPlayer!
     var avController: AVPlayerViewController!
@@ -41,6 +48,39 @@ class AVPlayerVC: UIViewController {
         }
         
         
+        // get frame from 1569 seconds
+        let time = CMTimeMake(value: 6569, timescale: 1000)
+        if let frameImage = getTthFrame(time: time){
+            framView.image = frameImage
+        }else{
+            print("Error frameImage")
+        }
+        
+//        if let frameImage = getTthPixelBuffer(item: (avPlayer.currentItem)!, time: time){
+//            framView.image = frameImage
+//        }else{
+//            print("Error frameImage")
+//        }
+      
+        
+        // getALL Frames
+       
+        
+        let queue = DispatchQueue(label:"mQueue")
+        
+        queue.async {
+            self.extractAllFrames()
+            DispatchQueue.main.async {
+                self.myCollectionView.reloadData()
+            }
+        }
+      
+        //myCollectionView.reloadData()
+        
+            
+        
+       
+       
         
     }
     
@@ -49,6 +89,8 @@ class AVPlayerVC: UIViewController {
 
         //let path = NSURL(fileURLWithPath: pathURL)
         avPlayer = AVPlayer(url: pathURL)
+        
+        // for duration
         avPlayer.currentItem?.addObserver(self, forKeyPath: "duration",options: [.new, .initial], context: nil)
 
             // Set up AVPlayerViewController
@@ -68,6 +110,7 @@ class AVPlayerVC: UIViewController {
             // Play the video
 //            avPlayer.play()
 //            isPlaying = true
+        
         }
     
    
@@ -156,7 +199,143 @@ class AVPlayerVC: UIViewController {
         
     }
     
+    
+    func getTthFrame(time: CMTime) -> UIImage? {
+        let asset = AVAsset(url: pathURL)
+        let imgGenerator = AVAssetImageGenerator(asset: asset)
+        imgGenerator.appliesPreferredTrackTransform = true
+        
+        imgGenerator.requestedTimeToleranceBefore = .zero
+        imgGenerator.requestedTimeToleranceAfter = .zero
+        do {
+            let cgImage = try imgGenerator.copyCGImage(at: time, actualTime: nil)
+              return UIImage(cgImage: cgImage)
+          } catch {
+              print("Failed to generate image: \(error.localizedDescription)")
+              return nil
+          }
+        
+      
+        
+    }
+    
+    func getTthPixelBuffer(item: AVPlayerItem, time: CMTime) -> UIImage? {
+        let videoOutput = AVPlayerItemVideoOutput(pixelBufferAttributes: [kCVPixelBufferPixelFormatTypeKey as String : NSNumber(value: kCVPixelFormatType_32BGRA)])
+        item.add(videoOutput)
+        if let pixelBuffer = videoOutput.copyPixelBuffer(forItemTime: time, itemTimeForDisplay: nil) {
+            let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+               let tempContext = CIContext(options: nil)
+            let videoImage = tempContext.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(pixelBuffer), height: CVPixelBufferGetHeight(pixelBuffer)))!
+            let image = UIImage(cgImage: videoImage)
+               return image
+           }
+           return nil
+       }
+    
+  
+    func extractAllFrames(){
+        
+        let asset = AVAsset(url: pathURL)
+        let reader = try! AVAssetReader(asset: asset)
+
+        
+        // gotta fix this
+        let videoTrack = asset.tracks(withMediaType: AVMediaType.video)[0]
+
+        // read video frames as BGRA
+        let trackReaderOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings:[String(kCVPixelBufferPixelFormatTypeKey): NSNumber(value: kCVPixelFormatType_32BGRA)])
+
+        reader.add(trackReaderOutput)
+        reader.startReading()
+        
+      // var frames: [CGImage] = []
+        while let sampleBuffer = trackReaderOutput.copyNextSampleBuffer() {
+            print("sample at time \(CMSampleBufferGetPresentationTimeStamp(sampleBuffer))")
+            if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
+                // process each CVPixelBufferRef here
+                frameImages.append(UIImage(pixelBuffer: imageBuffer)!)
+                // see CVPixelBufferGetWidth, CVPixelBufferLockBaseAddress, CVPixelBufferGetBaseAddress, etc
+            }
+        }
+        
+        print("Done extracting frames \(frameImages.count)")
+      
+   
+    }
+    
+//    func extractFramesPerMillisecond() {
+//        let asset = AVAsset(url: pathURL)
+//        let reader = try! AVAssetReader(asset: asset)
+//
+//        // Set the time range to extract frames from
+//        reader.timeRange = CMTimeRangeMake(start: CMTimeMake(0, 1000), duration: avPlayer.currentItem?.duration)
+//
+//        // Create an array to store the frames
+//        var frames: [CGImage] = []
+//
+//        // Loop through the sample buffers and extract the frames
+//        while let sampleBuffer = reader.copyNextSampleBuffer() {
+//            // Get the image buffer from the sample buffer
+//            if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
+//                // Convert the image buffer to a UIImage object
+//                let image = UIImage(pixelBuffer: imageBuffer)!
+//
+//                // Store the image in the array
+//                frames.append(image)
+//            }
+//        }
+//
+//        // Calculate the time between each frame in milliseconds
+//        let frameInterval = CMTimeGetSeconds(reader.timeRange.duration) / frames.count
+//
+//        // Print the frames per millisecond
+//        print("Frames per millisecond: \(frameInterval)")
+//    }
+
+
+    
 }
 
 
+
+
+extension AVPlayerVC: UICollectionViewDelegate, UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        frameImages.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell
+        else{
+            return UICollectionViewCell()
+        }
+        
+        let item = frameImages[indexPath.row]
+//        cell.urlString = item.urls["thumb"]
+//        cell.myLabel.numberOfLines = 0
+//        cell.myLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+//        cell.myLabel.text = item.description
+//        cell.myImageView.layer.cornerRadius = 15
+        cell.frameImage.image = item
+      //  print("returnin cell \(indexPath)")
+        
+        return cell
+    }
+    
+    
+}
+
+
+extension UIImage {
+        public convenience init?(pixelBuffer: CVPixelBuffer) {
+            var cgImage: CGImage?
+            VTCreateCGImageFromCVPixelBuffer(pixelBuffer, options: nil, imageOut: &cgImage)
+
+            guard let cgImage = cgImage else {
+                return nil
+            }
+
+            self.init(cgImage: cgImage)
+        }
+    }
 

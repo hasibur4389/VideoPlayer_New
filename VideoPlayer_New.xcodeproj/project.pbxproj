@@ -20,6 +20,7 @@
 		F31A5E602A4091E700B49425 /* AVPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A5E5F2A4091E700B49425 /* AVPlayerVC.swift */; };
 		F31A5E632A40969700B49425 /* header.m in Sources */ = {isa = PBXBuildFile; fileRef = F31A5E622A40969700B49425 /* header.m */; };
 		F3D7AA802A4170E20017F588 /* Tom.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F3D7AA7F2A4170E20017F588 /* Tom.mp4 */; };
+		F3E645CC2A42F0CF003D1FB4 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E645CB2A42F0CF003D1FB4 /* CollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		F31A5E612A40969700B49425 /* VideoPlayer_New-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VideoPlayer_New-Bridging-Header.h"; sourceTree = "<group>"; };
 		F31A5E622A40969700B49425 /* header.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = header.m; sourceTree = "<group>"; };
 		F3D7AA7F2A4170E20017F588 /* Tom.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = Tom.mp4; path = ../../../Tom.mp4; sourceTree = "<group>"; };
+		F3E645CB2A42F0CF003D1FB4 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				F31A5E4A2A408FA300B49425 /* Assets.xcassets */,
 				F31A5E4C2A408FA300B49425 /* LaunchScreen.storyboard */,
 				F31A5E4F2A408FA300B49425 /* Info.plist */,
+				F3E645CB2A42F0CF003D1FB4 /* CollectionViewCell.swift */,
 			);
 			path = VideoPlayer_New;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 			files = (
 				F31A5E462A408FA100B49425 /* ViewController.swift in Sources */,
 				F31A5E422A408FA100B49425 /* AppDelegate.swift in Sources */,
+				F3E645CC2A42F0CF003D1FB4 /* CollectionViewCell.swift in Sources */,
 				F31A5E442A408FA100B49425 /* SceneDelegate.swift in Sources */,
 				F31A5E602A4091E700B49425 /* AVPlayerVC.swift in Sources */,
 				F31A5E632A40969700B49425 /* header.m in Sources */,
