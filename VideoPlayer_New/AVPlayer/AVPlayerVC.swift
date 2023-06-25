@@ -20,6 +20,7 @@ class AVPlayerVC: UIViewController {
     var pathURL: URL!
     var mediaPlayerName: String!
     var isPlaying: Bool = false
+    var isFrameImagesFull: Bool = false
     
     
     @IBOutlet var myCollectionView: UICollectionView!
@@ -34,14 +35,17 @@ class AVPlayerVC: UIViewController {
     
     
     override func viewDidLoad() {
+        
         pathURL = Bundle.main.url(forResource: "Tom", withExtension: "mp4")
         
-    
+   
         
         if let pathURL = pathURL{
             print("Path found \(pathURL)")
-
+            
             playAVPlayer()
+            
+       
             
     }else{
             print("vidoe Path Error")
@@ -49,12 +53,12 @@ class AVPlayerVC: UIViewController {
         
         
         // get frame from 1569 seconds
-        let time = CMTimeMake(value: 6569, timescale: 1000)
-        if let frameImage = getTthFrame(time: time){
-            framView.image = frameImage
-        }else{
-            print("Error frameImage")
-        }
+       // let time = CMTimeMake(value: 6569, timescale: 1000)
+//        if let frameImage = getTthFrame(time: time){
+//            framView.image = frameImage
+//        }else{
+//            print("Error frameImage")
+//        }
         
 //        if let frameImage = getTthPixelBuffer(item: (avPlayer.currentItem)!, time: time){
 //            framView.image = frameImage
@@ -64,25 +68,40 @@ class AVPlayerVC: UIViewController {
       
         
         // getALL Frames
-       
+          
         
-        let queue = DispatchQueue(label:"mQueue")
+      
         
-        queue.async {
-            self.extractAllFrames()
-            DispatchQueue.main.async {
-                self.myCollectionView.reloadData()
-            }
-        }
+//        queue.async {
+//            self.extractAllFrames()
+//            DispatchQueue.main.async {
+//                self.myCollectionView.reloadData()
+//            }
+//        }
+        
+        
       
         //myCollectionView.reloadData()
         
-            
         
+        // getting all the frames
+     
+        
+        
+      
+        
+        
+//         if let frameImage = getTthFrame(time: time){
+//             framView.image = frameImage
+//         }else{
+//             print("Error frameImage")
+//         }
        
        
         
     }
+    
+  
     
     func playAVPlayer() {
             // Create AVPlayer with the video URL
@@ -91,14 +110,18 @@ class AVPlayerVC: UIViewController {
         avPlayer = AVPlayer(url: pathURL)
         
         // for duration
+       
+      //  print("\(avPlayer.currentItem?.duration)")
         avPlayer.currentItem?.addObserver(self, forKeyPath: "duration",options: [.new, .initial], context: nil)
-
+        addObserver()
+       
+       
             // Set up AVPlayerViewController
             avController = AVPlayerViewController()
             avController.player = avPlayer
 
             // Customize playerViewController's properties
-           // avController.showsPlaybackControls = true
+            avController.showsPlaybackControls = false
             avController.videoGravity = .resizeAspectFill
 
             // Set the frame of AVPlayerViewController's view to match the videoView's bounds
@@ -106,7 +129,10 @@ class AVPlayerVC: UIViewController {
 
             // Add AVPlayerViewController's view as a subview to videoView
              addChild(avController)
+        
             avPlayerView.addSubview(avController.view)
+             
+        
             // Play the video
 //            avPlayer.play()
 //            isPlaying = true
@@ -114,10 +140,67 @@ class AVPlayerVC: UIViewController {
         }
     
    
-    
+    func getTimedframes(){
+        
+        var interval = (avPlayer.currentItem?.duration.seconds)! / 6.0
+        interval = interval.rounded()
+        print(interval)
+        var temp = interval
+        for _ in 0...5{
+
+         let time = CMTime(seconds: interval, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+            frameImages.append(getTthFrame(time: time)!)
+            interval += temp
+            print("interval is \(interval) and time is \(time)")
+        }
+        myCollectionView.reloadData()
+        
+    }
         
     
     @IBAction func sliederValueChanged(_ sender: UISlider) {
+        avPlayer.seek(to: CMTimeMake(value: Int64(sender.value * 1000), timescale: 1000))
+    }
+    
+    func addObserver(){
+        let intervel = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+        let mainDispathcQueue = DispatchQueue.main
+        _ = avPlayer.addPeriodicTimeObserver(forInterval: intervel, queue: mainDispathcQueue, using: { [weak self] time in
+            guard let currentItem = self!.avPlayer.currentItem else {return}
+            self!.timeSlider.maximumValue = Float(currentItem.duration.seconds)
+            self!.timeSlider.minimumValue = 0
+            self!.timeSlider.value = Float(currentItem.currentTime().seconds)
+            self!.curretTimeLabel.text = self!.getTimeString(time: currentItem.currentTime())
+            
+          //  getCurrentFrame()
+            
+            if let frameImage = self!.getTthFrame(time: currentItem.currentTime()){
+                self!.framView.image = frameImage
+                   }else{
+                       print("Error frameImage")
+                   }
+        })
+        
+    }
+    
+    func getCurrentFrame(){
+        guard let avPlayer = avPlayer ,
+               let asset = avPlayer.currentItem?.asset else {
+                   return
+           }
+           
+           let imageGenerator = AVAssetImageGenerator(asset: asset)
+           imageGenerator.appliesPreferredTrackTransform = true
+           let times = [NSValue(time:avPlayer.currentTime())]
+           
+           imageGenerator.generateCGImagesAsynchronously(forTimes: times) { _, image, _, _, _ in
+               if let img = image {
+                   DispatchQueue.main.async {
+                       self.framView.image = UIImage(cgImage: img)
+                   }
+                   
+               }
+           }
         
     }
     
@@ -172,11 +255,18 @@ class AVPlayerVC: UIViewController {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         let duration = avPlayer.currentItem?.duration.seconds
+         
         
          // print(duration)
         if keyPath == "duration", Double(duration!) > 0.0 {
             let time = CMTimeSubtract(avPlayer.currentItem!.duration , avPlayer.currentItem!.currentTime())
             remainingTimeLabel.text = getTimeString(time: time)
+            
+            print("Called first time")
+            if isFrameImagesFull == false{
+                getTimedframes()
+                isFrameImagesFull = true
+            }
         }
         else {
             print("helllo !")
@@ -219,18 +309,18 @@ class AVPlayerVC: UIViewController {
         
     }
     
-    func getTthPixelBuffer(item: AVPlayerItem, time: CMTime) -> UIImage? {
-        let videoOutput = AVPlayerItemVideoOutput(pixelBufferAttributes: [kCVPixelBufferPixelFormatTypeKey as String : NSNumber(value: kCVPixelFormatType_32BGRA)])
-        item.add(videoOutput)
-        if let pixelBuffer = videoOutput.copyPixelBuffer(forItemTime: time, itemTimeForDisplay: nil) {
-            let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
-               let tempContext = CIContext(options: nil)
-            let videoImage = tempContext.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(pixelBuffer), height: CVPixelBufferGetHeight(pixelBuffer)))!
-            let image = UIImage(cgImage: videoImage)
-               return image
-           }
-           return nil
-       }
+//    func getTthPixelBuffer(item: AVPlayerItem, time: CMTime) -> UIImage? {
+//        let videoOutput = AVPlayerItemVideoOutput(pixelBufferAttributes: [kCVPixelBufferPixelFormatTypeKey as String : NSNumber(value: kCVPixelFormatType_32BGRA)])
+//        item.a dd(videoOutput)
+//        if let pixelBuffer = videoOutput.copyPixelBuffer(forItemTime: time, itemTimeForDisplay: nil) {
+//            let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+//               let tempContext = CIContext(options: nil)
+//            let videoImage = tempContext.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(pixelBuffer), height: CVPixelBufferGetHeight(pixelBuffer)))!
+//            let image = UIImage(cgImage: videoImage)
+//               return image
+//           }
+//           return nil
+//       }
     
   
     func extractAllFrames(){
@@ -251,6 +341,7 @@ class AVPlayerVC: UIViewController {
       // var frames: [CGImage] = []
         while let sampleBuffer = trackReaderOutput.copyNextSampleBuffer() {
             print("sample at time \(CMSampleBufferGetPresentationTimeStamp(sampleBuffer))")
+            
             if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
                 // process each CVPixelBufferRef here
                 frameImages.append(UIImage(pixelBuffer: imageBuffer)!)
