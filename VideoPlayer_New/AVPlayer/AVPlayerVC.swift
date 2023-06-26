@@ -141,12 +141,13 @@ class AVPlayerVC: UIViewController {
     
    
     func getTimedframes(){
-        
-        var interval = (avPlayer.currentItem?.duration.seconds)! / 6.0
+        let framesPerView = 50.0
+        var interval = (avPlayer.currentItem?.duration.seconds)! / framesPerView
         interval = interval.rounded()
         print(interval)
         var temp = interval
-        for _ in 0...5{
+        interval = 0.0
+        for _ in 0...Int(framesPerView)-1{
 
          let time = CMTime(seconds: interval, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
             frameImages.append(getTthFrame(time: time)!)
@@ -430,3 +431,21 @@ extension UIImage {
         }
     }
 
+
+extension AVPlayerVC: UICollectionViewDelegateFlowLayout {
+    
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            CGSize(width: (collectionView.frame.size.width)/5 - 1, height: (collectionView.frame.size.width)/5 - 1)
+        }
+    
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+            return 1
+        }
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+            return 1
+        }
+    
+    
+    
+    
+}
