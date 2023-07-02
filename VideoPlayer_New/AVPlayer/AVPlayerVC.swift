@@ -21,6 +21,9 @@ class AVPlayerVC: UIViewController {
     var mediaPlayerName: String!
     var isPlaying: Bool = false
     var isFrameImagesFull: Bool = false
+    var oldIndexPath: [IndexPath]? = nil
+    let framesPerView = 100.0
+    var oldMidX: Int = 0
     
     
     @IBOutlet var myCollectionView: UICollectionView!
@@ -36,6 +39,7 @@ class AVPlayerVC: UIViewController {
     
     override func viewDidLoad() {
         
+        // Video path as URL
         pathURL = Bundle.main.url(forResource: "Tom", withExtension: "mp4")
         
    
@@ -43,6 +47,7 @@ class AVPlayerVC: UIViewController {
         if let pathURL = pathURL{
             print("Path found \(pathURL)")
             
+            // Configuring AVPlayer
             playAVPlayer()
             
        
@@ -98,18 +103,33 @@ class AVPlayerVC: UIViewController {
 //         }
        
        
-        
+        let isScrolling: Bool = myCollectionView.isDragging || myCollectionView.isDecelerating
+
+        if isScrolling == false {
+            print("Is scrolling yes")
+//            let visibleRect = CGRect(origin: self.myCollectionView.contentOffset, size: self.myCollectionView.bounds.size)
+//              let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+//              let visibleIndexPath = self.myCollectionView.indexPathForItem(at: visiblePoint)
+//              print("Visible IndexPath \(visibleIndexPath![1])")
+//
+//              var interval = (self.avPlayer.currentItem?.duration.seconds)! / 60.0
+//              interval = interval.rounded()
+//              if self.isPlaying == false{
+//                  print("in seeek")
+//                  let time = interval*Double(visibleIndexPath![1])
+//              self.avPlayer.seek(to: CMTime(seconds: time, preferredTimescale: 1000))
+//          }
+            
+        }
     }
     
   
     
     func playAVPlayer() {
             // Create AVPlayer with the video URL
-
-        //let path = NSURL(fileURLWithPath: pathURL)
-        avPlayer = AVPlayer(url: pathURL)
+           avPlayer = AVPlayer(url: pathURL)
         
-        // for duration
+        // for duration creating a KVC relationship
        
       //  print("\(avPlayer.currentItem?.duration)")
         avPlayer.currentItem?.addObserver(self, forKeyPath: "duration",options: [.new, .initial], context: nil)
@@ -137,21 +157,33 @@ class AVPlayerVC: UIViewController {
 //            avPlayer.play()
 //            isPlaying = true
         
+        
         }
     
+    
    
+    // Getting frames not all but timed frames
     func getTimedframes(){
-        let framesPerView = 50.0
+        // dividing the duration using framesPerView to get the interval
+        
         var interval = (avPlayer.currentItem?.duration.seconds)! / framesPerView
+        var duration = (avPlayer.currentItem?.duration.seconds)!
         interval = interval.rounded()
         print(interval)
         var temp = interval
         interval = 0.0
+        
         for _ in 0...Int(framesPerView)-1{
-
+            if interval + temp >  duration{
+                break
+            }
+            else{
+                interval += temp
+            }
          let time = CMTime(seconds: interval, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+            print(time)
             frameImages.append(getTthFrame(time: time)!)
-            interval += temp
+            
             print("interval is \(interval) and time is \(time)")
         }
         myCollectionView.reloadData()
@@ -163,6 +195,7 @@ class AVPlayerVC: UIViewController {
         avPlayer.seek(to: CMTimeMake(value: Int64(sender.value * 1000), timescale: 1000))
     }
     
+    // Adding Periodic observer after 0.5 seconds
     func addObserver(){
         let intervel = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
         let mainDispathcQueue = DispatchQueue.main
@@ -172,17 +205,38 @@ class AVPlayerVC: UIViewController {
             self!.timeSlider.minimumValue = 0
             self!.timeSlider.value = Float(currentItem.currentTime().seconds)
             self!.curretTimeLabel.text = self!.getTimeString(time: currentItem.currentTime())
+//
+            // collectioview
+            //MARK: Here i want to seek to the postition of the frame, the frame middle of the colleectionview each time i scroll the collectionview
+            //            print("where me?")
+//            let visibleRect = CGRect(origin: self!.myCollectionView.contentOffset, size: self!.myCollectionView.bounds.size)
+//            let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+//            let visibleIndexPath = self!.myCollectionView.indexPathForItem(at: visiblePoint)
+//            print("Visible IndexPath \(visibleIndexPath![1])")
+//
+//            var interval = (self!.avPlayer.currentItem?.duration.seconds)! / 60.0
+//            interval = interval.rounded()
+//            if self!.isPlaying == false{
+//                print("in seeek")
+//                let time = interval*Double(visibleIndexPath![1])
+//            self!.avPlayer.seek(to: CMTime(seconds: time, preferredTimescale: 1000))
+        //}
+//
+           // self!.avPlayer.seek(to: CMTimeMake(value: Int64(visibleIndexPath![1]*1000), timescale: 1000))
             
           //  getCurrentFrame()
             
+            // getting the current frame
             if let frameImage = self!.getTthFrame(time: currentItem.currentTime()){
                 self!.framView.image = frameImage
+                print("imageeee")
                    }else{
                        print("Error frameImage")
                    }
         })
         
     }
+    
     
     func getCurrentFrame(){
         guard let avPlayer = avPlayer ,
@@ -432,7 +486,68 @@ extension UIImage {
     }
 
 
-extension AVPlayerVC: UICollectionViewDelegateFlowLayout {
+extension AVPlayerVC: UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
+    
+
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let collectionView = scrollView as? UICollectionView{
+            print(collectionView.indexPathsForVisibleItems )
+            let indexPaths = collectionView.indexPathsForVisibleItems
+            
+            if oldIndexPath == nil{
+                oldIndexPath = indexPaths
+            }
+            else if oldIndexPath == indexPaths{
+                print("same so returned")
+                return
+                
+            }else{
+                oldIndexPath = indexPaths
+            }
+            
+            print("still here?")
+            var index = 0
+            for indexPath in indexPaths {
+                index += indexPath[1]
+            }
+            let midX = (index / 6)
+             print("midX \(midX)")
+            if oldMidX == 0{
+                oldMidX = midX
+            }else if oldMidX == midX{
+                return
+            }else {
+                oldMidX = midX
+            }
+            
+            var interval = (self.avPlayer.currentItem?.duration.seconds)! / self.framesPerView
+                interval = interval.rounded()
+            let time = Double(midX) * interval
+            self.avPlayer.seek(to: CMTime(seconds: Double(time), preferredTimescale: CMTimeScale(NSEC_PER_SEC)))
+
+            
+              //  print("Is scrolling yes")
+//                let visibleRect = CGRect(origin: self.myCollectionView.contentOffset, size: self.myCollectionView.bounds.size)
+//            let midX = visibleRect.midX
+//            print("mid of X is  \(midX)")
+//            let visiblePoint = CGPoint(x: (visibleRect.midX/2.0).rounded(), y: visibleRect.midY*0)
+//            let visibleIndexPath = self.myCollectionView.indexPathForItem(at: visiblePoint)
+//                //  print("Visible IndexPath \(visibleIndexPath![1])")
+//
+//                  var interval = (self.avPlayer.currentItem?.duration.seconds)! / 60.0
+//                  interval = interval.rounded()
+//            if self.isPlaying == false{
+//                print("in seeek")
+//                let idx = Double(visibleIndexPath![1]).rounded()
+//                let time = interval*Double(visibleIndexPath![1])
+//                self.avPlayer.seek(to: CMTime(seconds: time, preferredTimescale: 1000))
+//            }
+//
+//
+//
+        }
+    }
     
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             CGSize(width: (collectionView.frame.size.width)/5 - 1, height: (collectionView.frame.size.width)/5 - 1)
@@ -444,6 +559,8 @@ extension AVPlayerVC: UICollectionViewDelegateFlowLayout {
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
             return 1
         }
+    
+    
     
     
     
